@@ -7,8 +7,8 @@
 -------------------------------------------------- */
 $lang['faq:label:faq']                 = 'Frequently Asked Questions';
 $lang['faq:label:categories']          = 'Categorias';
-$lang['faq:shortcuts:create_faq']      = 'Crear FAQ';
-$lang['faq:shortcuts:create_category'] = 'Crear categoría';
+$lang['faq:label:create_faq']          = 'Crear FAQ';
+$lang['faq:label:create_category']     = 'Crear categoría';
 
 /* fields
 -------------------------------------------------- */
