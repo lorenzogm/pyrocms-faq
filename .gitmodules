@@ -1,5 +1,3 @@
 [submodule "libraries/streams"]
 	path = libraries/streams
-	url = https://github.com/LorenzoGarcia/pyrocms-streams-details
-
-/* End of file .gitmodules.php */
+	url = git@github.com:LorenzoGarcia/pyrocms-streams-details.git
