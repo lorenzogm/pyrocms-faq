@@ -15,9 +15,9 @@ class Faq extends Public_Controller
     public function index()
     {
         $params = array(
-            'stream'    => $this->stream,
+            'stream'    => 'categories',
             'namespace' => $this->namespace,
-            'order_by' => 'category',
+            'order_by' => 'ordering_count',
             'sort' => 'asc',
             );
         $faqs = $this->streams->entries->get_entries($params);
@@ -55,3 +55,5 @@ class Faq extends Public_Controller
 
     }
 }
+
+/* End of file faq.php */

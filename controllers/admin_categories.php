@@ -1,4 +1,13 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
+
+/**
+* FAQ
+*
+* @package FAQ
+* @author Lorenzo García <contact@lorenzo-garcia.com>
+* @license http://creativecommons.org/licenses/by-sa/3.0/ Creative Commons Attribution-ShareAlike 3.0 Unported
+* @link http://lorenzo-garcia.com
+*/
 
 class Admin_categories extends Admin_Controller
 {
@@ -20,13 +29,14 @@ class Admin_categories extends Admin_Controller
 
         $extra['buttons'][] = array(
             'label'     => lang('global:edit'),
-            'url'       => 'admin/'.$this->namespace.'/edit/-entry_id-'
+            'url'       => 'admin/'.$this->namespace.'/'.$this->stream.'/edit/-entry_id-'
             );
         $extra['buttons'][] = array(
             'label'     => lang('global:delete'),
-            'url'       => 'admin/'.$this->namespace.'/delete/-entry_id-',
+            'url'       => 'admin/'.$this->namespace.'/'.$this->stream.'/delete/-entry_id-',
             'confirm'   => true
             );
+        $extra['sorting'] = true;
 
         $this->streams->cp->entries_table($this->stream, $this->namespace, null, null, true, $extra);
     }
@@ -48,8 +58,6 @@ class Admin_categories extends Admin_Controller
     {
         role_or_die('faq', 'admin');
 
-        $this->load->model('faq_m');
-
         $extra = array(
             'return'            => 'admin/'.$this->namespace.'/'.$this->stream,
             'success_message'   => lang('global:message:edit:success'),
@@ -68,3 +76,5 @@ class Admin_categories extends Admin_Controller
         redirect('admin/'.$this->namespace.'/'.$this->stream);
     }
 }
+
+/* End of file admin_categories.php */

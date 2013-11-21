@@ -1,4 +1,13 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
+
+/**
+* FAQ
+*
+* @package FAQ
+* @author Lorenzo García <contact@lorenzo-garcia.com>
+* @license http://creativecommons.org/licenses/by-sa/3.0/ Creative Commons Attribution-ShareAlike 3.0 Unported
+* @link http://lorenzo-garcia.com
+*/
 
 class Admin extends Admin_Controller
 {
@@ -32,6 +41,7 @@ class Admin extends Admin_Controller
                 'url'       => 'admin/'.$this->namespace.'/delete/-entry_id-',
                 'confirm'   => true
                 );
+            $extra['sorting'] = true;
         }
 
         $this->streams->cp->entries_table($this->stream, $this->namespace, null, null, true, $extra);
@@ -73,3 +83,5 @@ class Admin extends Admin_Controller
     }
 
 }
+
+/* End of file admin.php */
