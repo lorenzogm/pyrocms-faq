@@ -192,14 +192,17 @@ class Module_Faq extends Module
             }
 
             // Update view_options in the "categories" stream
-            $update_data['faq'] = array(
+            $update_data = array(
                 'view_options' => array('name', 'category', 'published'),
+                'title_column' => 'name',
                 );
-            $update_data['categories'] = array(
+            $this->streams->streams->update_stream('faq', $this->namespace, $update_data);
+
+            $update_data = array(
                 'view_options' => array('name', 'description', 'published'),
+                'title_column' => 'name',
                 );
-            $this->streams->streams->update_stream('faq', $this->namespace, $update_data['faq']);
-            $this->streams->streams->update_stream('categories', $this->namespace, $update_data['categories']);
+            $this->streams->streams->update_stream('categories', $this->namespace, $update_data);
         }
 
         return true;
