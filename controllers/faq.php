@@ -23,18 +23,33 @@ class Faq extends Public_Controller
         $faqs = $this->streams->entries->get_entries($params);
 
         $this->template
-        ->set('faqs', $faqs)
+        ->set('categories', $categories)
         ->build('index');
     }
 
-    public function view($entry_id = 0)
+    public function category($slug)
     {
-        $entry = $this->streams->entries->get_entry($entry_id, $this->stream, $this->namespace, true);
+        $params = array(
+            'stream' => 'categories',
+            'namespace' => $this->namespace,
+            'where' => '`slug` = \''.$slug.'\'',
+            );
+        $categories = $this->streams->entries->get_entries($params);
+
+        if(isset($categories['entries'][0]))
+        {
+            $category = $categories['entries'][0];
+        }
+        else
+        {
+            return show_404();
+        }
 
         $params = array(
-            'stream'    => $this->stream,
+            'stream' => 'faq',
             'namespace' => $this->namespace,
-            'order_by' => 'category',
+            'where' => '`category` = \''.$category['id'].'\'',
+            'order_by' => 'ordering_count',
             'sort' => 'asc',
             );
         $faqs = $this->streams->entries->get_entries($params);
@@ -48,11 +63,10 @@ class Faq extends Public_Controller
         $categories = $this->streams->entries->get_entries($params);
 
         $this->template
-        ->set('entry', $entry)
+        ->set('category', $category)
         ->set('faqs', $faqs)
         ->set('categories', $categories)
-        ->build('view');
-
+        ->build('category');
     }
 }
 
