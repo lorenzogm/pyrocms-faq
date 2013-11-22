@@ -12,7 +12,7 @@ $lang['faq:label:create_category']     = 'Crear categoría';
 
 /* fields
 -------------------------------------------------- */
-$lang['faq:label:title']               = 'Titulo';
+$lang['faq:label:name']                = 'Nombre';
 $lang['faq:label:slug']                = 'Slug';
 $lang['faq:label:category']            = 'Categoría';
 $lang['faq:label:description']         = 'Descripción';

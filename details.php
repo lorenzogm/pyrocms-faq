@@ -97,11 +97,11 @@ class Module_Faq extends Module
 
         $streams_options = array(
             'faq' => array(
-                'view_options' => array('name', 'slug', 'category', 'published'),
+                'view_options' => array('name', 'category', 'published'),
                 'title_column' => 'name'
                 ),
             'categories' => array(
-                'view_options' => array('name', 'slug', 'description', 'published'),
+                'view_options' => array('name', 'description', 'published'),
                 'title_column' => 'name'
                 ),
             );
@@ -137,6 +137,7 @@ class Module_Faq extends Module
 
     public function upgrade($old_version)
     {
+
         if($old_version < '1.1.0')
         {
             // Change "title" to "name"
@@ -146,19 +147,61 @@ class Module_Faq extends Module
                 );
             $update = array(
                 'field_name' => $this->streams_details->lang('name'),
-                'field_name' => 'name',
+                'field_slug' => 'name',
                 );
             $this->db->where($where)->update('data_fields', $update);
+            $columns = array(
+                'title' => array(
+                    'name' => 'name',
+                    'type' => 'varchar(255)'
+                    ),
+                );
+            $fields = $this->db->list_fields($this->namespace.'_faq');
+
+            if (in_array('title', $fields))
+            {
+                $this->dbforge->modify_column($this->namespace.'_faq', $columns);
+            }
+
+            $fields = $this->db->list_fields($this->namespace.'_categories');
+            if (in_array('title', $fields))
+            {
+                $this->dbforge->modify_column($this->namespace.'_categories', $columns);
+            }
 
             // Add "description" field to "categories" stream
-            $streams = array('categories');
-            $fields = array();
-            $field_assignments = array(
-                'categories' => array('description'),
+            $field_assignments = $this->streams->fields->get_field_assignments('description', $this->namespace);
+            $assignment_exists = false;
+            foreach ($field_assignments as $field_assignment)
+            {
+                if ($field_assignment->stream_slug == 'categories')
+                {
+                    $assignment_exists = true;
+                    break;
+                }
+            }
+
+            if (!$assignment_exists)
+            {
+                $streams = array('categories');
+                $fields = array();
+                $field_assignments = array(
+                    'categories' => array('description'),
+                    );
+                $this->streams_details->insert_field_assignments($streams, $fields, $field_assignments);
+            }
+
+            // Update view_options in the "categories" stream
+            $update_data['faq'] = array(
+                'view_options' => array('name', 'category', 'published'),
                 );
-            $this->streams_details->insert_field_assignments($streams, $fields, $field_assignments);            
+            $update_data['categories'] = array(
+                'view_options' => array('name', 'description', 'published'),
+                );
+            $this->streams->streams->update_stream('faq', $this->namespace, $update_data['faq']);
+            $this->streams->streams->update_stream('categories', $this->namespace, $update_data['categories']);
         }
-        
+
         return true;
     }
 
