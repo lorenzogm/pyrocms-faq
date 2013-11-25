@@ -17,6 +17,8 @@ $lang['faq:label:slug']                = 'Slug';
 $lang['faq:label:category']            = 'Categoría';
 $lang['faq:label:description']         = 'Descripción';
 $lang['faq:label:published']           = 'Publicado';
+$lang['faq:label:yes']                 = 'Sí';
+$lang['faq:label:no']                  = 'No';
 $lang['faq:label:draft']               = 'Borrador';
 
 /* global
@@ -28,3 +30,5 @@ $lang['global:message:edit:success']   = 'La entrada fue editada correctamente.'
 $lang['global:message:edit:failure']   = 'Hubo un error al editar la entrada.';
 $lang['global:label:edit']             = 'Editar';
 $lang['global:message:delete:success'] = 'La entrada fue eliminada correctamente.';
+
+/* End of file faq_lang.php */
