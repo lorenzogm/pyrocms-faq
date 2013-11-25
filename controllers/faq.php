@@ -20,7 +20,7 @@ class Faq extends Public_Controller
             'order_by' => 'ordering_count',
             'sort' => 'asc',
             );
-        $faqs = $this->streams->entries->get_entries($params);
+        $categories = $this->streams->entries->get_entries($params);
 
         $this->template
         ->set('categories', $categories)
@@ -63,6 +63,7 @@ class Faq extends Public_Controller
         $categories = $this->streams->entries->get_entries($params);
 
         $this->template
+        ->title($category['name'])
         ->set('category', $category)
         ->set('faqs', $faqs)
         ->set('categories', $categories)
