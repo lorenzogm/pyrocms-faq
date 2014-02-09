@@ -44,7 +44,7 @@ class Admin extends Admin_Controller
             $extra['sorting'] = true;
         }
 
-        $this->streams->cp->entries_table($this->stream, $this->namespace, null, null, true, $extra);
+        $this->streams->cp->entries_table($this->stream, $this->namespace, Settings::get('records_per_page'), 'admin/faq/index', true, $extra);
     }
 
     public function create()

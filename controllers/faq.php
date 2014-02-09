@@ -14,9 +14,22 @@ class Faq extends Public_Controller
 
     public function index()
     {
+        if(isset($this->current_user))
+        {
+            if ($this->current_user->group_id == 2)
+                $group = ' AND (`visibility` = \'any\' OR `visibility` = \'users\')';
+            else
+                $group = ' AND (`visibility` = \'any\' OR `visibility` = \'users\' OR `visibility` = \'admins\')';
+        }
+        else
+        {
+            $group = ' AND `visibility` = \'any\'';
+        }
+
         $params = array(
             'stream'    => 'categories',
             'namespace' => $this->namespace,
+            'where' => '`published` = \'yes\''.$group,
             'order_by' => 'ordering_count',
             'sort' => 'asc',
             );
@@ -29,10 +42,22 @@ class Faq extends Public_Controller
 
     public function category($slug)
     {
+        if(isset($this->current_user))
+        {
+            if ($this->current_user->group_id == 2)
+                $group = ' AND (`visibility` = \'any\' OR `visibility` = \'users\')';
+            else
+                $group = ' AND (`visibility` = \'any\' OR `visibility` = \'users\' OR `visibility` = \'admins\')';
+        }
+        else
+        {
+            $group = ' AND `visibility` = \'any\'';
+        }
+
         $params = array(
             'stream' => 'categories',
             'namespace' => $this->namespace,
-            'where' => '`slug` = \''.$slug.'\'',
+            'where' => '`slug` = \''.$slug.'\''.$group.' AND `published` = \'yes\'',
             );
         $categories = $this->streams->entries->get_entries($params);
 
@@ -42,13 +67,14 @@ class Faq extends Public_Controller
         }
         else
         {
-            return show_404();
+            $this->session->set_flashdata('error', 'Página no encontada');
+            redirect();
         }
 
         $params = array(
             'stream' => 'faq',
             'namespace' => $this->namespace,
-            'where' => '`category` = \''.$category['id'].'\'',
+            'where' => '`category` = \''.$category['id'].'\' AND `published` = \'yes\'',
             'order_by' => 'ordering_count',
             'sort' => 'asc',
             );

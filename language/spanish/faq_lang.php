@@ -20,6 +20,10 @@ $lang['faq:label:published']           = 'Publicado';
 $lang['faq:label:yes']                 = 'Sí';
 $lang['faq:label:no']                  = 'No';
 $lang['faq:label:draft']               = 'Borrador';
+$lang['faq:label:visibility']          = 'Visibilidad';
+$lang['faq:label:any']                 = 'Cualquiera';
+$lang['faq:label:users']               = 'Usuarios';
+$lang['faq:label:admins']              = 'Administradores';
 
 /* global
 -------------------------------------------------- */
