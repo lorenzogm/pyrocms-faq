@@ -1,4 +1,4 @@
-<h1>Preguntas frecuentes</h1>
+<h1>FAQ</h1>
 
 <div id="faq">
 	{{ categories:entries }}

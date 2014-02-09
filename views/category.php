@@ -14,7 +14,7 @@
 	</div>
 
 	<div class="col-md-3 text-left hidden">
-		<p><h2>Preguntas frecuentes</h2></p>
+		<p><h2>FAQ</h2></p>
 		{{ categories:entries }}
 		<p><h3><a href="{{ url:site }}faq/{{ slug }}">{{ name }}</a><h3></p>
 		{{ /categories:entries }}
